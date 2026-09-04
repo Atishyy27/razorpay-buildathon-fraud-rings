@@ -1,0 +1,32 @@
+name: test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+
+      - name: unit and end-to-end tests
+        run: pytest -v
+
+      - name: full pipeline smoke test
+        run: |
+          python generator.py --seed 1 --n-rings 12 --n-legit 600
+          python run_pipeline.py
+
+      # the independent-world test is the one that caught the model losing to a
+      # hand-written rule, so CI runs a reduced version of it rather than
+      # trusting the committed report to still be true
+      - name: held-out world smoke test
+        run: python holdout.py --pairs 2 --n-rings 12 --n-legit 600 --out /tmp/holdout.json
+
+      - name: dashboard imports cleanly
+        run: python -c "import app"

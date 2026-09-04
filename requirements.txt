@@ -1,0 +1,9 @@
+pandas==3.0.5
+numpy==2.5.2
+Faker==40.36.0
+networkx==3.6.1
+scikit-learn==1.9.0
+scipy==1.18.0
+pytest==9.1.1
+streamlit==1.62.0
+matplotlib==3.11.1

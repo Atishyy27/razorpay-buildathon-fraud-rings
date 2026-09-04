@@ -1,0 +1,20 @@
+# virtualenv
+.venv/
+
+# generated transaction data: regenerate with `python generator.py`, never
+# commit it. It is large, it is synthetic, and a stale copy in git is a copy
+# the README's numbers can silently disagree with.
+data/
+
+# results/ IS committed on purpose: the numbers stay readable without running
+# anything. holdout.py's scratch worlds go to a system temp dir and are deleted
+# on exit, so there is nothing to exclude here.
+
+# python + tooling
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# macOS
+.DS_Store
