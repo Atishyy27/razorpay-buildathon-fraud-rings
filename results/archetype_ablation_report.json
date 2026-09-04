@@ -1,0 +1,290 @@
+{
+  "summary": {
+    "pairs": 6,
+    "features_used": [
+      "id_sharing_ratio",
+      "chargeback_rate",
+      "peak_hourly_velocity",
+      "burst_ratio",
+      "size",
+      "n_txns",
+      "high_resale_share",
+      "burst_synchrony",
+      "formation_window_days"
+    ],
+    "protocol": "train and threshold on one generated world, test blind on another from a different seed; the rule baseline is selected on the same training world and applied to the same test world",
+    "model": {
+      "precision": {
+        "mean": 0.7422811422811422,
+        "std": 0.1966327545948886,
+        "min": 0.4,
+        "max": 0.9636363636363636,
+        "values": [
+          0.9636363636363636,
+          0.8285714285714286,
+          0.6483516483516484,
+          0.4,
+          0.7702702702702703,
+          0.8428571428571429
+        ]
+      },
+      "recall": {
+        "mean": 0.9611111111111111,
+        "std": 0.04172218523448575,
+        "min": 0.8833333333333333,
+        "max": 1.0,
+        "values": [
+          0.8833333333333333,
+          0.9666666666666667,
+          0.9833333333333333,
+          1.0,
+          0.95,
+          0.9833333333333333
+        ]
+      },
+      "cost": {
+        "mean": 48666.666666666664,
+        "std": 30297.96472812434,
+        "min": 20500.0,
+        "max": 106000.0,
+        "values": [
+          106000.0,
+          36000.0,
+          31000.0,
+          45000.0,
+          53500.0,
+          20500.0
+        ]
+      }
+    },
+    "rule": {
+      "precision": {
+        "mean": 0.4475661047163531,
+        "std": 0.032109163134306534,
+        "min": 0.3973509933774834,
+        "max": 0.49166666666666664,
+        "values": [
+          0.46825396825396826,
+          0.4411764705882353,
+          0.4338235294117647,
+          0.3973509933774834,
+          0.453125,
+          0.49166666666666664
+        ]
+      },
+      "recall": {
+        "mean": 0.9861111111111112,
+        "std": 0.012546210878484688,
+        "min": 0.9666666666666667,
+        "max": 1.0,
+        "values": [
+          0.9833333333333333,
+          1.0,
+          0.9833333333333333,
+          1.0,
+          0.9666666666666667,
+          0.9833333333333333
+        ]
+      },
+      "cost": {
+        "mean": 49333.333333333336,
+        "std": 9179.687721631202,
+        "min": 38000.0,
+        "max": 65000.0,
+        "values": [
+          48500.0,
+          38000.0,
+          53500.0,
+          45500.0,
+          65000.0,
+          45500.0
+        ]
+      }
+    },
+    "model_beats_rule": {
+      "wins": 5,
+      "ties": 0,
+      "losses": 1,
+      "win_rate_95ci": [
+        0.35876542100232517,
+        0.9957892554855106
+      ]
+    },
+    "cost_ratio": {
+      "of_means": 1.0136986301369864,
+      "per_pair_median": 1.1352544132917965,
+      "per_pair_min": 0.45754716981132076,
+      "per_pair_max": 2.2195121951219514,
+      "per_pair": [
+        0.45754716981132076,
+        1.0555555555555556,
+        1.7258064516129032,
+        1.011111111111111,
+        1.2149532710280373,
+        2.2195121951219514
+      ]
+    },
+    "mean_false_positives": {
+      "model": 27.333333333333332,
+      "rule": 73.66666666666667
+    }
+  },
+  "pairs": [
+    {
+      "pair": 0,
+      "train_seed": 100,
+      "test_seed": 101,
+      "n_test_clusters": 1439,
+      "model": {
+        "precision": 0.9636363636363636,
+        "recall": 0.8833333333333333,
+        "tp": 53,
+        "fp": 2,
+        "fn": 7,
+        "tn": 1377,
+        "cost": 106000,
+        "threshold": 0.999673637978151
+      },
+      "rule": {
+        "precision": 0.46825396825396826,
+        "recall": 0.9833333333333333,
+        "tp": 59,
+        "fp": 67,
+        "fn": 1,
+        "tn": 1312,
+        "cost": 48500,
+        "rule": "peak_hourly_velocity(>=3) AND burst_synchrony(>=0.5)"
+      }
+    },
+    {
+      "pair": 1,
+      "train_seed": 102,
+      "test_seed": 103,
+      "n_test_clusters": 1485,
+      "model": {
+        "precision": 0.8285714285714286,
+        "recall": 0.9666666666666667,
+        "tp": 58,
+        "fp": 12,
+        "fn": 2,
+        "tn": 1413,
+        "cost": 36000,
+        "threshold": 0.5324703434862424
+      },
+      "rule": {
+        "precision": 0.4411764705882353,
+        "recall": 1.0,
+        "tp": 60,
+        "fp": 76,
+        "fn": 0,
+        "tn": 1349,
+        "cost": 38000,
+        "rule": "peak_hourly_velocity(>=3) AND burst_synchrony(>=0.5)"
+      }
+    },
+    {
+      "pair": 2,
+      "train_seed": 104,
+      "test_seed": 105,
+      "n_test_clusters": 1450,
+      "model": {
+        "precision": 0.6483516483516484,
+        "recall": 0.9833333333333333,
+        "tp": 59,
+        "fp": 32,
+        "fn": 1,
+        "tn": 1358,
+        "cost": 31000,
+        "threshold": 5.153730015341432e-05
+      },
+      "rule": {
+        "precision": 0.4338235294117647,
+        "recall": 0.9833333333333333,
+        "tp": 59,
+        "fp": 77,
+        "fn": 1,
+        "tn": 1313,
+        "cost": 53500,
+        "rule": "formation_window_days(<=7.0) AND peak_hourly_velocity(>=3)"
+      }
+    },
+    {
+      "pair": 3,
+      "train_seed": 106,
+      "test_seed": 107,
+      "n_test_clusters": 1453,
+      "model": {
+        "precision": 0.4,
+        "recall": 1.0,
+        "tp": 60,
+        "fp": 90,
+        "fn": 0,
+        "tn": 1303,
+        "cost": 45000,
+        "threshold": 5.4116982491486234e-05
+      },
+      "rule": {
+        "precision": 0.3973509933774834,
+        "recall": 1.0,
+        "tp": 60,
+        "fp": 91,
+        "fn": 0,
+        "tn": 1302,
+        "cost": 45500,
+        "rule": "burst_synchrony(>=0.5) AND high_resale_share(>=0.5)"
+      }
+    },
+    {
+      "pair": 4,
+      "train_seed": 108,
+      "test_seed": 109,
+      "n_test_clusters": 1466,
+      "model": {
+        "precision": 0.7702702702702703,
+        "recall": 0.95,
+        "tp": 57,
+        "fp": 17,
+        "fn": 3,
+        "tn": 1389,
+        "cost": 53500,
+        "threshold": 0.0003606660501636924
+      },
+      "rule": {
+        "precision": 0.453125,
+        "recall": 0.9666666666666667,
+        "tp": 58,
+        "fp": 70,
+        "fn": 2,
+        "tn": 1336,
+        "cost": 65000,
+        "rule": "peak_hourly_velocity(>=3) AND burst_synchrony(>=0.5)"
+      }
+    },
+    {
+      "pair": 5,
+      "train_seed": 110,
+      "test_seed": 111,
+      "n_test_clusters": 1456,
+      "model": {
+        "precision": 0.8428571428571429,
+        "recall": 0.9833333333333333,
+        "tp": 59,
+        "fp": 11,
+        "fn": 1,
+        "tn": 1385,
+        "cost": 20500,
+        "threshold": 0.00011381772978270556
+      },
+      "rule": {
+        "precision": 0.49166666666666664,
+        "recall": 0.9833333333333333,
+        "tp": 59,
+        "fp": 61,
+        "fn": 1,
+        "tn": 1335,
+        "cost": 45500,
+        "rule": "peak_hourly_velocity(>=3) AND burst_synchrony(>=0.5)"
+      }
+    }
+  ]
+}

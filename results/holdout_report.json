@@ -1,0 +1,488 @@
+{
+  "summary": {
+    "pairs": 12,
+    "features_used": [
+      "id_sharing_ratio",
+      "chargeback_rate",
+      "peak_hourly_velocity",
+      "burst_ratio",
+      "size",
+      "n_txns",
+      "high_resale_share",
+      "burst_synchrony",
+      "formation_window_days"
+    ],
+    "protocol": "train and threshold on one generated world, test blind on another from a different seed; the rule baseline is selected on the same training world and applied to the same test world",
+    "model": {
+      "precision": {
+        "mean": 0.6066291554589273,
+        "std": 0.165121247856105,
+        "min": 0.38311688311688313,
+        "max": 1.0,
+        "values": [
+          0.6818181818181818,
+          0.38311688311688313,
+          0.6105263157894737,
+          0.5128205128205128,
+          0.7375,
+          1.0,
+          0.5175438596491229,
+          0.5619047619047619,
+          0.43795620437956206,
+          0.4957983193277311,
+          0.6210526315789474,
+          0.7195121951219512
+        ]
+      },
+      "recall": {
+        "mean": 0.973611111111111,
+        "std": 0.04520343093560672,
+        "min": 0.8333333333333334,
+        "max": 1.0,
+        "values": [
+          1.0,
+          0.9833333333333333,
+          0.9666666666666667,
+          1.0,
+          0.9833333333333333,
+          0.8333333333333334,
+          0.9833333333333333,
+          0.9833333333333333,
+          1.0,
+          0.9833333333333333,
+          0.9833333333333333,
+          0.9833333333333333
+        ]
+      },
+      "cost": {
+        "mean": 46041.666666666664,
+        "std": 35068.4125760785,
+        "min": 14000.0,
+        "max": 150000.0,
+        "values": [
+          14000.0,
+          62500.0,
+          48500.0,
+          28500.0,
+          25500.0,
+          150000.0,
+          42500.0,
+          38000.0,
+          38500.0,
+          45000.0,
+          33000.0,
+          26500.0
+        ]
+      }
+    },
+    "rule": {
+      "precision": {
+        "mean": 0.3181567323194235,
+        "std": 0.10340665240495243,
+        "min": 0.19230769230769232,
+        "max": 0.5188679245283019,
+        "values": [
+          0.26905829596412556,
+          0.20134228187919462,
+          0.3027027027027027,
+          0.3015075376884422,
+          0.4262295081967213,
+          0.5188679245283019,
+          0.2898550724637681,
+          0.28921568627450983,
+          0.2033898305084746,
+          0.43333333333333335,
+          0.3900709219858156,
+          0.19230769230769232
+        ]
+      },
+      "recall": {
+        "mean": 0.9569444444444444,
+        "std": 0.05386962063107579,
+        "min": 0.8666666666666667,
+        "max": 1.0,
+        "values": [
+          1.0,
+          1.0,
+          0.9333333333333333,
+          1.0,
+          0.8666666666666667,
+          0.9166666666666666,
+          1.0,
+          0.9833333333333333,
+          1.0,
+          0.8666666666666667,
+          0.9166666666666666,
+          1.0
+        ]
+      },
+      "cost": {
+        "mean": 110541.66666666667,
+        "std": 28613.774760779223,
+        "min": 69500.0,
+        "max": 155000.0,
+        "values": [
+          81500.0,
+          119000.0,
+          124500.0,
+          69500.0,
+          155000.0,
+          100500.0,
+          73500.0,
+          87500.0,
+          117500.0,
+          154000.0,
+          118000.0,
+          126000.0
+        ]
+      }
+    },
+    "model_beats_rule": {
+      "wins": 11,
+      "ties": 0,
+      "losses": 1,
+      "win_rate_95ci": [
+        0.6152038348490559,
+        0.9978924067681397
+      ]
+    },
+    "cost_ratio": {
+      "of_means": 2.400904977375566,
+      "per_pair_median": 2.8094791806132013,
+      "per_pair_min": 0.67,
+      "per_pair_max": 6.078431372549019,
+      "per_pair": [
+        5.821428571428571,
+        1.904,
+        2.5670103092783507,
+        2.43859649122807,
+        6.078431372549019,
+        0.67,
+        1.7294117647058824,
+        2.3026315789473686,
+        3.051948051948052,
+        3.422222222222222,
+        3.5757575757575757,
+        4.754716981132075
+      ]
+    },
+    "mean_false_positives": {
+      "model": 44.583333333333336,
+      "rule": 143.58333333333334
+    }
+  },
+  "pairs": [
+    {
+      "pair": 0,
+      "train_seed": 100,
+      "test_seed": 101,
+      "n_test_clusters": 1439,
+      "model": {
+        "precision": 0.6818181818181818,
+        "recall": 1.0,
+        "tp": 60,
+        "fp": 28,
+        "fn": 0,
+        "tn": 1351,
+        "cost": 14000,
+        "threshold": 0.00017617667489046567
+      },
+      "rule": {
+        "precision": 0.26905829596412556,
+        "recall": 1.0,
+        "tp": 60,
+        "fp": 163,
+        "fn": 0,
+        "tn": 1216,
+        "cost": 81500,
+        "rule": "formation_window_days(<=7.0) AND high_resale_share(>=0.5)"
+      }
+    },
+    {
+      "pair": 1,
+      "train_seed": 102,
+      "test_seed": 103,
+      "n_test_clusters": 1485,
+      "model": {
+        "precision": 0.38311688311688313,
+        "recall": 0.9833333333333333,
+        "tp": 59,
+        "fp": 95,
+        "fn": 1,
+        "tn": 1330,
+        "cost": 62500,
+        "threshold": 6.92043990223673e-05
+      },
+      "rule": {
+        "precision": 0.20134228187919462,
+        "recall": 1.0,
+        "tp": 60,
+        "fp": 238,
+        "fn": 0,
+        "tn": 1187,
+        "cost": 119000,
+        "rule": "formation_window_days(<=7.0) AND high_resale_share(>=0.5)"
+      }
+    },
+    {
+      "pair": 2,
+      "train_seed": 104,
+      "test_seed": 105,
+      "n_test_clusters": 1450,
+      "model": {
+        "precision": 0.6105263157894737,
+        "recall": 0.9666666666666667,
+        "tp": 58,
+        "fp": 37,
+        "fn": 2,
+        "tn": 1353,
+        "cost": 48500,
+        "threshold": 6.324751834761632e-05
+      },
+      "rule": {
+        "precision": 0.3027027027027027,
+        "recall": 0.9333333333333333,
+        "tp": 56,
+        "fp": 129,
+        "fn": 4,
+        "tn": 1261,
+        "cost": 124500,
+        "rule": "formation_window_days(<=7.0) AND chargeback_rate(>=0.05)"
+      }
+    },
+    {
+      "pair": 3,
+      "train_seed": 106,
+      "test_seed": 107,
+      "n_test_clusters": 1453,
+      "model": {
+        "precision": 0.5128205128205128,
+        "recall": 1.0,
+        "tp": 60,
+        "fp": 57,
+        "fn": 0,
+        "tn": 1336,
+        "cost": 28500,
+        "threshold": 4.9114930169584915e-05
+      },
+      "rule": {
+        "precision": 0.3015075376884422,
+        "recall": 1.0,
+        "tp": 60,
+        "fp": 139,
+        "fn": 0,
+        "tn": 1254,
+        "cost": 69500,
+        "rule": "formation_window_days(<=7.0) AND high_resale_share(>=0.5)"
+      }
+    },
+    {
+      "pair": 4,
+      "train_seed": 108,
+      "test_seed": 109,
+      "n_test_clusters": 1466,
+      "model": {
+        "precision": 0.7375,
+        "recall": 0.9833333333333333,
+        "tp": 59,
+        "fp": 21,
+        "fn": 1,
+        "tn": 1385,
+        "cost": 25500,
+        "threshold": 6.071914783292849e-05
+      },
+      "rule": {
+        "precision": 0.4262295081967213,
+        "recall": 0.8666666666666667,
+        "tp": 52,
+        "fp": 70,
+        "fn": 8,
+        "tn": 1336,
+        "cost": 155000,
+        "rule": "formation_window_days(<=7.0) AND peak_hourly_velocity(>=3)"
+      }
+    },
+    {
+      "pair": 5,
+      "train_seed": 110,
+      "test_seed": 111,
+      "n_test_clusters": 1456,
+      "model": {
+        "precision": 1.0,
+        "recall": 0.8333333333333334,
+        "tp": 50,
+        "fp": 0,
+        "fn": 10,
+        "tn": 1396,
+        "cost": 150000,
+        "threshold": 0.9998659216468453
+      },
+      "rule": {
+        "precision": 0.5188679245283019,
+        "recall": 0.9166666666666666,
+        "tp": 55,
+        "fp": 51,
+        "fn": 5,
+        "tn": 1345,
+        "cost": 100500,
+        "rule": "chargeback_rate(>=0.05) AND high_resale_share(>=0.5)"
+      }
+    },
+    {
+      "pair": 6,
+      "train_seed": 112,
+      "test_seed": 113,
+      "n_test_clusters": 1418,
+      "model": {
+        "precision": 0.5175438596491229,
+        "recall": 0.9833333333333333,
+        "tp": 59,
+        "fp": 55,
+        "fn": 1,
+        "tn": 1303,
+        "cost": 42500,
+        "threshold": 8.14148524409591e-05
+      },
+      "rule": {
+        "precision": 0.2898550724637681,
+        "recall": 1.0,
+        "tp": 60,
+        "fp": 147,
+        "fn": 0,
+        "tn": 1211,
+        "cost": 73500,
+        "rule": "formation_window_days(<=7.0) AND chargeback_rate(>=0.05)"
+      }
+    },
+    {
+      "pair": 7,
+      "train_seed": 114,
+      "test_seed": 115,
+      "n_test_clusters": 1428,
+      "model": {
+        "precision": 0.5619047619047619,
+        "recall": 0.9833333333333333,
+        "tp": 59,
+        "fp": 46,
+        "fn": 1,
+        "tn": 1322,
+        "cost": 38000,
+        "threshold": 3.089021660073832e-05
+      },
+      "rule": {
+        "precision": 0.28921568627450983,
+        "recall": 0.9833333333333333,
+        "tp": 59,
+        "fp": 145,
+        "fn": 1,
+        "tn": 1223,
+        "cost": 87500,
+        "rule": "formation_window_days(<=7.0) AND high_resale_share(>=0.5)"
+      }
+    },
+    {
+      "pair": 8,
+      "train_seed": 116,
+      "test_seed": 117,
+      "n_test_clusters": 1443,
+      "model": {
+        "precision": 0.43795620437956206,
+        "recall": 1.0,
+        "tp": 60,
+        "fp": 77,
+        "fn": 0,
+        "tn": 1306,
+        "cost": 38500,
+        "threshold": 5.6285800529755746e-05
+      },
+      "rule": {
+        "precision": 0.2033898305084746,
+        "recall": 1.0,
+        "tp": 60,
+        "fp": 235,
+        "fn": 0,
+        "tn": 1148,
+        "cost": 117500,
+        "rule": "formation_window_days(<=7.0) AND high_resale_share(>=0.5)"
+      }
+    },
+    {
+      "pair": 9,
+      "train_seed": 118,
+      "test_seed": 119,
+      "n_test_clusters": 1506,
+      "model": {
+        "precision": 0.4957983193277311,
+        "recall": 0.9833333333333333,
+        "tp": 59,
+        "fp": 60,
+        "fn": 1,
+        "tn": 1386,
+        "cost": 45000,
+        "threshold": 3.08811510699747e-05
+      },
+      "rule": {
+        "precision": 0.43333333333333335,
+        "recall": 0.8666666666666667,
+        "tp": 52,
+        "fp": 68,
+        "fn": 8,
+        "tn": 1378,
+        "cost": 154000,
+        "rule": "formation_window_days(<=7.0) AND peak_hourly_velocity(>=3)"
+      }
+    },
+    {
+      "pair": 10,
+      "train_seed": 120,
+      "test_seed": 121,
+      "n_test_clusters": 1468,
+      "model": {
+        "precision": 0.6210526315789474,
+        "recall": 0.9833333333333333,
+        "tp": 59,
+        "fp": 36,
+        "fn": 1,
+        "tn": 1372,
+        "cost": 33000,
+        "threshold": 3.1389770775650764e-05
+      },
+      "rule": {
+        "precision": 0.3900709219858156,
+        "recall": 0.9166666666666666,
+        "tp": 55,
+        "fp": 86,
+        "fn": 5,
+        "tn": 1322,
+        "cost": 118000,
+        "rule": "peak_hourly_velocity(>=3) AND high_resale_share(>=0.5)"
+      }
+    },
+    {
+      "pair": 11,
+      "train_seed": 122,
+      "test_seed": 123,
+      "n_test_clusters": 1467,
+      "model": {
+        "precision": 0.7195121951219512,
+        "recall": 0.9833333333333333,
+        "tp": 59,
+        "fp": 23,
+        "fn": 1,
+        "tn": 1384,
+        "cost": 26500,
+        "threshold": 5.7427880688045674e-05
+      },
+      "rule": {
+        "precision": 0.19230769230769232,
+        "recall": 1.0,
+        "tp": 60,
+        "fp": 252,
+        "fn": 0,
+        "tn": 1155,
+        "cost": 126000,
+        "rule": "formation_window_days(<=7.0) AND high_resale_share(>=0.5)"
+      }
+    }
+  ]
+}

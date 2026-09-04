@@ -1,0 +1,77 @@
+{
+  "n_clusters": 1428,
+  "n_rules_evaluated": 594,
+  "tuning": "in-sample, no cross-validation, deliberately favourable to the rule",
+  "cost_model": {
+    "false_positive": 500,
+    "false_negative": 15000
+  },
+  "best": {
+    "precision": 0.3015075376884422,
+    "recall": 1.0,
+    "tp": 60,
+    "fp": 139,
+    "fn": 0,
+    "tn": 1229,
+    "cost": 69500,
+    "rule": "formation_window_days(<=7.0) AND chargeback_rate(>=0.05)"
+  },
+  "top5": [
+    {
+      "precision": 0.3015075376884422,
+      "recall": 1.0,
+      "tp": 60,
+      "fp": 139,
+      "fn": 0,
+      "tn": 1229,
+      "cost": 69500,
+      "rule": "formation_window_days(<=7.0) AND chargeback_rate(>=0.05)"
+    },
+    {
+      "precision": 0.5137614678899083,
+      "recall": 0.9333333333333333,
+      "tp": 56,
+      "fp": 53,
+      "fn": 4,
+      "tn": 1315,
+      "cost": 86500,
+      "rule": "chargeback_rate(>=0.05) AND high_resale_share(>=0.7)"
+    },
+    {
+      "precision": 0.48672566371681414,
+      "recall": 0.9166666666666666,
+      "tp": 55,
+      "fp": 58,
+      "fn": 5,
+      "tn": 1310,
+      "cost": 104000,
+      "rule": "formation_window_days(<=7.0) AND peak_hourly_velocity(>=3)"
+    },
+    {
+      "precision": 0.21897810218978103,
+      "recall": 1.0,
+      "tp": 60,
+      "fp": 214,
+      "fn": 0,
+      "tn": 1154,
+      "cost": 107000,
+      "rule": "chargeback_rate(>=0.05) AND high_resale_share(>=0.5)"
+    },
+    {
+      "precision": 0.4263565891472868,
+      "recall": 0.9166666666666666,
+      "tp": 55,
+      "fp": 74,
+      "fn": 5,
+      "tn": 1294,
+      "cost": 112000,
+      "rule": "chargeback_rate(>=0.05) AND peak_hourly_velocity(>=3)"
+    }
+  ],
+  "recall_by_archetype": {
+    "loud": 1.0,
+    "quiet": 1.0,
+    "slow_drain": 1.0,
+    "sophisticated": 1.0
+  }
+}

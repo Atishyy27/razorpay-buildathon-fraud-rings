@@ -1,0 +1,265 @@
+{
+  "question": "Are burst_synchrony, high_resale_share and formation_window_days the reason the model beats a hand-written rule?",
+  "protocol": "6 matched train/test world pairs from base seed 100. Identical seeds, identical model config, identical rule baseline. Only the feature set differs.",
+  "dropped": [
+    "burst_synchrony",
+    "formation_window_days",
+    "high_resale_share"
+  ],
+  "arms": {
+    "all_features": {
+      "pairs": 6,
+      "features_used": [
+        "id_sharing_ratio",
+        "chargeback_rate",
+        "peak_hourly_velocity",
+        "burst_ratio",
+        "size",
+        "n_txns",
+        "high_resale_share",
+        "burst_synchrony",
+        "formation_window_days"
+      ],
+      "protocol": "train and threshold on one generated world, test blind on another from a different seed; the rule baseline is selected on the same training world and applied to the same test world",
+      "model": {
+        "precision": {
+          "mean": 0.6542969822575085,
+          "std": 0.2110264646343267,
+          "min": 0.38311688311688313,
+          "max": 1.0,
+          "values": [
+            0.6818181818181818,
+            0.38311688311688313,
+            0.6105263157894737,
+            0.5128205128205128,
+            0.7375,
+            1.0
+          ]
+        },
+        "recall": {
+          "mean": 0.9611111111111111,
+          "std": 0.06382847385042252,
+          "min": 0.8333333333333334,
+          "max": 1.0,
+          "values": [
+            1.0,
+            0.9833333333333333,
+            0.9666666666666667,
+            1.0,
+            0.9833333333333333,
+            0.8333333333333334
+          ]
+        },
+        "cost": {
+          "mean": 54833.333333333336,
+          "std": 49753.05685751044,
+          "min": 14000.0,
+          "max": 150000.0,
+          "values": [
+            14000.0,
+            62500.0,
+            48500.0,
+            28500.0,
+            25500.0,
+            150000.0
+          ]
+        }
+      },
+      "rule": {
+        "precision": {
+          "mean": 0.3366180418265814,
+          "std": 0.11531876071902804,
+          "min": 0.20134228187919462,
+          "max": 0.5188679245283019,
+          "values": [
+            0.26905829596412556,
+            0.20134228187919462,
+            0.3027027027027027,
+            0.3015075376884422,
+            0.4262295081967213,
+            0.5188679245283019
+          ]
+        },
+        "recall": {
+          "mean": 0.952777777777778,
+          "std": 0.056190812482179026,
+          "min": 0.8666666666666667,
+          "max": 1.0,
+          "values": [
+            1.0,
+            1.0,
+            0.9333333333333333,
+            1.0,
+            0.8666666666666667,
+            0.9166666666666666
+          ]
+        },
+        "cost": {
+          "mean": 108333.33333333333,
+          "std": 31120.197085922617,
+          "min": 69500.0,
+          "max": 155000.0,
+          "values": [
+            81500.0,
+            119000.0,
+            124500.0,
+            69500.0,
+            155000.0,
+            100500.0
+          ]
+        }
+      },
+      "model_beats_rule": {
+        "wins": 5,
+        "ties": 0,
+        "losses": 1,
+        "win_rate_95ci": [
+          0.35876542100232517,
+          0.9957892554855106
+        ]
+      },
+      "cost_ratio": {
+        "of_means": 1.9756838905775074,
+        "per_pair_median": 2.5028034002532102,
+        "per_pair_min": 0.67,
+        "per_pair_max": 6.078431372549019,
+        "per_pair": [
+          5.821428571428571,
+          1.904,
+          2.5670103092783507,
+          2.43859649122807,
+          6.078431372549019,
+          0.67
+        ]
+      }
+    },
+    "minus_coordination": {
+      "pairs": 6,
+      "features_used": [
+        "id_sharing_ratio",
+        "chargeback_rate",
+        "peak_hourly_velocity",
+        "burst_ratio",
+        "size",
+        "n_txns"
+      ],
+      "protocol": "train and threshold on one generated world, test blind on another from a different seed; the rule baseline is selected on the same training world and applied to the same test world",
+      "model": {
+        "precision": {
+          "mean": 0.6085665035121769,
+          "std": 0.11351393142969424,
+          "min": 0.45081967213114754,
+          "max": 0.7435897435897436,
+          "values": [
+            0.7435897435897436,
+            0.5681818181818182,
+            0.6404494382022472,
+            0.5288461538461539,
+            0.7195121951219512,
+            0.45081967213114754
+          ]
+        },
+        "recall": {
+          "mean": 0.9277777777777777,
+          "std": 0.053402732625324044,
+          "min": 0.8333333333333334,
+          "max": 0.9833333333333333,
+          "values": [
+            0.9666666666666667,
+            0.8333333333333334,
+            0.95,
+            0.9166666666666666,
+            0.9833333333333333,
+            0.9166666666666666
+          ]
+        },
+        "cost": {
+          "mean": 84083.33333333333,
+          "std": 52605.52886025067,
+          "min": 26500.0,
+          "max": 169000.0,
+          "values": [
+            40000.0,
+            169000.0,
+            61000.0,
+            99500.0,
+            26500.0,
+            108500.0
+          ]
+        }
+      },
+      "rule": {
+        "precision": {
+          "mean": 0.3366180418265814,
+          "std": 0.11531876071902804,
+          "min": 0.20134228187919462,
+          "max": 0.5188679245283019,
+          "values": [
+            0.26905829596412556,
+            0.20134228187919462,
+            0.3027027027027027,
+            0.3015075376884422,
+            0.4262295081967213,
+            0.5188679245283019
+          ]
+        },
+        "recall": {
+          "mean": 0.952777777777778,
+          "std": 0.056190812482179026,
+          "min": 0.8666666666666667,
+          "max": 1.0,
+          "values": [
+            1.0,
+            1.0,
+            0.9333333333333333,
+            1.0,
+            0.8666666666666667,
+            0.9166666666666666
+          ]
+        },
+        "cost": {
+          "mean": 108333.33333333333,
+          "std": 31120.197085922617,
+          "min": 69500.0,
+          "max": 155000.0,
+          "values": [
+            81500.0,
+            119000.0,
+            124500.0,
+            69500.0,
+            155000.0,
+            100500.0
+          ]
+        }
+      },
+      "model_beats_rule": {
+        "wins": 3,
+        "ties": 0,
+        "losses": 3,
+        "win_rate_95ci": [
+          0.11811724875702521,
+          0.8818827512429748
+        ]
+      },
+      "cost_ratio": {
+        "of_means": 1.288404360753221,
+        "per_pair_median": 1.4818836405529954,
+        "per_pair_min": 0.6984924623115578,
+        "per_pair_max": 5.849056603773585,
+        "per_pair": [
+          2.0375,
+          0.7041420118343196,
+          2.040983606557377,
+          0.6984924623115578,
+          5.849056603773585,
+          0.9262672811059908
+        ]
+      }
+    }
+  },
+  "delta_from_dropping": {
+    "precision": -0.04573047874533165,
+    "recall": -0.03333333333333344,
+    "cost": 29249.999999999993
+  }
+}
