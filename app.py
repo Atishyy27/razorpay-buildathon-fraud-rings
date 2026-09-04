@@ -103,7 +103,7 @@ def main():
                 {"approach": "Tier 2 model",
                  "precision": round(t2["precision"], 2), "recall": round(t2["recall"], 2),
                  "false positives": t2["fp"], "est. cost": f"Rs.{t2['est_cost']:,.0f}"},
-            ]), use_container_width=True, hide_index=True)
+            ]), width='stretch', hide_index=True)
             st.caption(f"best rule: `{b['rule']}`")
         else:
             st.info("run `python baseline.py` to generate this comparison")
@@ -119,7 +119,7 @@ def main():
                  "recall": f"{h[who]['recall']['mean']:.2f} +/- {h[who]['recall']['std']:.2f}",
                  "est. cost": f"Rs.{h[who]['cost']['mean']:,.0f}"}
                 for who in ("rule", "model")
-            ]), use_container_width=True, hide_index=True)
+            ]), width='stretch', hide_index=True)
             w = h["model_beats_rule"]
             st.caption(f"model cheaper in {w['wins']} of {h['pairs']} independent worlds "
                        f"({w['ties']} tie, {w['losses']} loss)")
@@ -128,7 +128,7 @@ def main():
 
     st.subheader("Flagged clusters")
     display_cols = ["cluster_id", "archetype", "size", "risk_score", "action", "explanation"]
-    st.dataframe(merged[display_cols], use_container_width=True, hide_index=True)
+    st.dataframe(merged[display_cols], width='stretch', hide_index=True)
 
     st.subheader("Inspect a cluster")
     cluster_id = st.selectbox("cluster_id", merged["cluster_id"].tolist())
