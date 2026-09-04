@@ -422,19 +422,15 @@ the whole comparison rerun without it (`holdout.py --exclude-archetype
 slow_drain`, 6 pairs). If the model's advantage came from that archetype, it
 should collapse:
 
-| | precision | recall | cost | review queue |
-|---|---|---|---|---|
-| Best hand-tuned rule | 0.46 | 0.97 | Rs.72,083 | 84.2 FPs |
-| Tier 2 model | 0.69 | 0.97 | Rs.39,083 | 28.2 FPs |
-
 | | precision | recall | cost | FPs / world |
 |---|---|---|---|---|
 | Best hand-tuned rule | 0.45 | 0.99 | Rs.49,333 | 73.7 |
 | Tier 2 model | 0.74 | 0.96 | Rs.48,667 | 27.3 |
 
 **On cost this is a tie**: Rs.48,667 against Rs.49,333 is a 1.4% difference,
-even though the model still wins 5 of 6 worlds on count. The queue advantage
-survives intact at 2.7x.
+even though the model still wins 5 of 6 worlds on count. The reviewer-volume
+advantage shrinks but holds: the queue is 1.56x smaller (85.0 alerts against
+132.8) and false alarms are 2.70x fewer.
 
 So the concession is only half-rescued, and the honest reading is the
 uncomfortable one: **`slow_drain` does carry most of the cost advantage.** The

@@ -127,6 +127,10 @@
     "mean_false_positives": {
       "model": 27.333333333333332,
       "rule": 73.66666666666667
+    },
+    "mean_queue_size": {
+      "model": 85.0,
+      "rule": 132.83333333333334
     }
   },
   "pairs": [

@@ -8,17 +8,22 @@ or auto-refunded.
 
 **The honest headline.** Against the best of 594 hand-tuned rules, on 12
 independently generated worlds the model has never seen, it is cheaper in 11 of
-12 and puts **3.2x fewer clusters in the review queue** at the same catch rate
-(44.6 false positives per world against 143.6, with recall 0.97 against 0.96).
-Precision is the analyst's workload, and that is the number a fraud-ops team
-actually feels.
+12 and hands a human reviewer **a 1.95x smaller queue** at the same catch rate
+(103 alerts per world against 201, recall 0.97 against 0.96). Of those alerts,
+**3.2x fewer are false alarms** (44.6 against 143.6).
 
-Getting to numbers worth stating took **seven** rediscoveries that the problem
-was too easy. One of them was a hand-written rule beating the model outright.
-Three of them were columns that separated the two classes perfectly and that
-the model never even used. All seven are in [DECISIONS.md](DECISIONS.md), along
-with a direct answer to the obvious objection: that the data was changed until
-the model won.
+Both numbers matter and they are not the same number: a reviewer opens every
+alert, not just the wrong ones, so queue size is what you staff for and false
+alarms are the wasted subset. An earlier draft of this README quoted the 3.2x
+under the label "review queue", which overstated the headline by 1.6x. An
+independent audit caught it.
+
+Getting to numbers worth stating took **seven** occasions where this project
+produced a result that looked good and was not. One was a hand-written rule
+beating the model outright. Three were columns that separated the two classes
+perfectly and that the model never even used. All seven are in
+[DECISIONS.md](DECISIONS.md), along with a direct answer to the obvious
+objection: that the data was changed until the model won.
 
 ---
 
@@ -62,7 +67,8 @@ the same training world and applied to the same test world. Twelve pairs:
 **Model cheaper in 11 of 12 worlds**, 95% Clopper-Pearson CI on the win rate
 **[62%, 100%]**. Cost advantage 2.4x on the ratio of means, 2.8x on the
 per-pair median, ranging 0.7x to 6.1x, so **in one world the rule wins
-outright**. The review queue is 3.2x smaller.
+outright**. Reviewer queue is 1.95x smaller (103 alerts against 201); false
+alarms specifically are 3.2x fewer.
 
 Held-out precision (0.61) is well below the in-fold figure (0.82). The
 independent-world number is the one to trust.
@@ -124,9 +130,10 @@ without it (`holdout.py --exclude-archetype slow_drain`, 6 pairs):
 
 Read that honestly: **on cost the two are a tie** (Rs.48,667 against
 Rs.49,333, a 1.4% difference), though the model still wins 5 of 6 worlds on
-count. The queue advantage survives intact at 2.7x. So `slow_drain` does carry
-much of the cost advantage, and the concession in DECISIONS.md stands. What
-does not depend on it is the review-volume result.
+count. The reviewer-volume advantage shrinks but survives: queue 1.56x smaller
+(85.0 alerts against 132.8), false alarms 2.70x fewer. So `slow_drain` does
+carry most of the cost advantage, and the concession in DECISIONS.md stands.
+What survives without it is the review-volume result, at a smaller margin.
 
 ### 6. How much does the invented cost ratio matter?
 
@@ -210,7 +217,7 @@ quotes.
 pytest
 ```
 
-**61 tests.** Unit tests per stage, an end-to-end suite that runs the real
+**67 tests.** Unit tests per stage, an end-to-end suite that runs the real
 scripts as subprocesses, and a leakage-guard suite.
 
 `tests/test_end_to_end.py` asserts what only exists across stage boundaries:

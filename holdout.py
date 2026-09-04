@@ -165,7 +165,19 @@ def summarise(rows, features=None):
     ratios = [r["rule"]["cost"] / r["model"]["cost"] for r in rows if r["model"]["cost"] > 0]
     model = {m: spread("model", m) for m in ("precision", "recall", "cost")}
     rule = {m: spread("rule", m) for m in ("precision", "recall", "cost")}
+
+    # Queue size and false alarms are different quantities and conflating them
+    # inflates the headline: a reviewer opens EVERY alert, not only the wrong
+    # ones, so the queue is tp+fp and false alarms are the wasted subset. An
+    # earlier README quoted the false-alarm ratio under the label "review
+    # queue", overstating it by 1.6x.
+    queue = {who: float(np.mean([r[who]["tp"] + r[who]["fp"] for r in rows]))
+             for who in ("model", "rule")}
+    false_positives = {who: float(np.mean([r[who]["fp"] for r in rows]))
+                       for who in ("model", "rule")}
     return {
+        "mean_queue_size": queue,
+        "mean_false_positives": false_positives,
         "pairs": n,
         "features_used": list(features) if features is not None else list(TIER2_FEATURES),
         "protocol": ("train and threshold on one generated world, test blind on another "
@@ -234,12 +246,17 @@ def main():
     # Cost at a fixed ratio hides the operational difference when both options
     # reach similar recall, so queue volume is reported alongside it: at equal
     # catch rate, precision IS the analyst workload.
-    fp_model = float(np.mean([r["model"]["fp"] for r in rows]))
-    fp_rule = float(np.mean([r["rule"]["fp"] for r in rows]))
-    summary["mean_false_positives"] = {"model": fp_model, "rule": fp_rule}
-    print(f"mean false positives per world: model {fp_model:.1f}, rule {fp_rule:.1f} "
-          f"({fp_rule / fp_model:.1f}x the review queue for the rule)"
-          if fp_model else "")
+    # Two different things, reported separately because conflating them
+    # inflates the headline. A reviewer opens EVERY alert, not just the wrong
+    # ones, so queue size is tp+fp; false alarms are the wasted subset.
+    fp_model = summary["mean_false_positives"]["model"]
+    fp_rule = summary["mean_false_positives"]["rule"]
+    q_model = summary["mean_queue_size"]["model"]
+    q_rule = summary["mean_queue_size"]["rule"]
+    if fp_model and q_model:
+        print(f"per world: queue {q_model:.1f} vs {q_rule:.1f} "
+              f"({q_rule / q_model:.2f}x smaller), of which false alarms "
+              f"{fp_model:.1f} vs {fp_rule:.1f} ({fp_rule / fp_model:.2f}x fewer)")
 
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
