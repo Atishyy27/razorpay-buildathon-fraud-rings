@@ -7,7 +7,7 @@ how you got out" field, and for defending the design in the panel.
 The through-line: **seven separate times, this project produced a result that
 looked good and was not.** Each time the fix was to make the measurement harder
 rather than to make the model better. Bug 4 is the one worth reading, because
-that is where the hand-written rule beat the model and the honest answer was to
+that is where the threshold-rule baseline beat the model and the honest answer was to
 accept it and find out why. Bug 5 is the one worth noting, because it was found
 by an outside reviewer after everything above was already written.
 
@@ -162,7 +162,7 @@ Result on the same five independent world pairs:
 
 | | precision | recall | cost |
 |---|---|---|---|
-| Best hand-tuned rule | 0.61 +/- 0.26 | 0.90 +/- 0.10 | Rs.113,300 |
+| Best tuned threshold rule | 0.61 +/- 0.26 | 0.90 +/- 0.10 | Rs.113,300 |
 | Tier 2 model | 0.79 +/- 0.21 | 0.99 +/- 0.01 | Rs.17,000 |
 
 **Model cheaper in 5 of 5.**
@@ -424,7 +424,7 @@ should collapse:
 
 | | precision | recall | cost | FPs / world |
 |---|---|---|---|---|
-| Best hand-tuned rule | 0.45 | 0.99 | Rs.49,333 | 73.7 |
+| Best tuned threshold rule | 0.45 | 0.99 | Rs.49,333 | 73.7 |
 | Tier 2 model | 0.74 | 0.96 | Rs.48,667 | 27.3 |
 
 **On cost this is a tie**: Rs.48,667 against Rs.49,333 is a 1.4% difference,
@@ -485,7 +485,7 @@ values never drove a conclusion.
   Rs.49,333). Only the review-queue advantage is robust across both.
 - **Held-out precision (0.61 +/- 0.17) is far below in-fold (0.82)** and the
   per-world cost ratio spans 0.7x to 6.1x. No single world should be quoted.
-- **Tier 1 loses to a hand-written rule** and is kept in the repo saying so.
+- **Tier 1 loses to a plain threshold rule** and is kept in the repo saying so.
 - **The headline threshold is selected on the same out-of-fold predictions it
   is scored on.** A nested check returned identical counts, so measured bias is
   ~0, but the held-out numbers do not have the property at all.

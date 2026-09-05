@@ -6,6 +6,8 @@ run_pipeline.py already wrote to data/, doesn't recompute anything itself.
 Run: streamlit run app.py
 """
 import json
+import subprocess
+import sys
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -14,6 +16,50 @@ import pandas as pd
 import streamlit as st
 
 
+PIPELINE = [
+    ["generator.py", "--seed", "42", "--n-rings", "60", "--n-legit", "12000"],
+    ["graph_features.py"],
+    ["detect.py"],
+    ["baseline.py"],
+    ["explain.py"],
+    ["respond.py"],
+]
+
+
+def bootstrap_if_missing(data_dir="data"):
+    """Generate the dataset on first run if it is not on disk.
+
+    data/ is gitignored on purpose (a stale committed copy is one the README
+    can silently disagree with), which means a fresh clone or a hosted deploy
+    has nothing to read. Rather than commit generated data, the app builds it
+    once and Streamlit caches the result for the session.
+
+    It uses the CANONICAL parameters (--seed 42 --n-rings 60 --n-legit 12000),
+    not a smaller world, so the figures on screen are the same figures the
+    README quotes. A faster cold start with a smaller dataset would have shown
+    numbers that quietly disagree with the documentation, which is the exact
+    failure the gitignore on data/ exists to prevent.
+    """
+    needed = ["flagged_clusters.csv", "actions.json", "accounts.csv"]
+    if all((Path(data_dir) / f).exists() for f in needed):
+        return False
+    status = st.status("First run: generating the dataset and scoring it. "
+                       "About a minute, then it is cached.", expanded=True)
+    for step in PIPELINE:
+        status.write(f"running {step[0]}")
+        result = subprocess.run(
+            [sys.executable, *step], cwd=Path(__file__).resolve().parent,
+            capture_output=True, text=True,
+        )
+        if result.returncode != 0:
+            status.update(label=f"{step[0]} failed", state="error")
+            st.code(result.stderr[-2000:])
+            st.stop()
+    status.update(label="Dataset ready.", state="complete")
+    return True
+
+
+@st.cache_data(show_spinner=False)
 def load_data(data_dir="data", reports_dir="results"):
     data = Path(data_dir)
     flagged = pd.read_csv(data / "flagged_clusters.csv")
@@ -62,6 +108,7 @@ def main():
     st.title("Fraud-ring detector, track 02 (AI Risk Manager)")
     st.caption("Cost figures and thresholds are illustrative, see DECISIONS.md.")
 
+    bootstrap_if_missing()
     flagged, actions_df, eval_report, accounts = load_data()
     merged = merge_flagged_with_actions(flagged, actions_df)
 

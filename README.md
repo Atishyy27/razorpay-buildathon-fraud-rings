@@ -19,7 +19,7 @@ under the label "review queue", which overstated the headline by 1.6x. An
 independent audit caught it.
 
 Getting to numbers worth stating took **seven** occasions where this project
-produced a result that looked good and was not. One was a hand-written rule
+produced a result that looked good and was not. One was a threshold rule
 beating the model outright. Three were columns that separated the two classes
 perfectly and that the model never even used. All seven are in
 [DECISIONS.md](DECISIONS.md), along with a direct answer to the obvious
@@ -34,21 +34,27 @@ clusters, 60 of them rings, 4.2% positive.** Costs use a modelled 30:1 ratio
 between a missed ring and a false alarm; the rupee figures are invented and
 section 6 shows how much the conclusion depends on them.
 
-### 1. Does the model beat a hand-written rule?
+### 1. Does the model beat a plain threshold rule?
 
 This is the question that decides whether any of this was worth building. The
-rules are tuned **in-sample, with access to all 9 features the model uses**, in
-both threshold directions plus every two-column AND/OR pair. The model is
-scored out-of-fold. The comparison is tilted toward the rule on purpose.
+**These are not literally hand-authored.** `baseline.py` enumerates a grid: every
+single-column threshold in both directions over the thresholdable features, plus
+every two-column AND/OR pair, across fixed round cutoffs a risk analyst would
+plausibly pick. That comes to 594 combinations. Calling them "hand-written"
+would overstate the baseline, so the code and the docs say enumerated.
+
+They are tuned **in-sample, with access to all 9 features the model uses**, while
+the model is scored out-of-fold. The comparison is tilted toward the rule on
+purpose.
 
 | | precision | recall | false positives | est. cost |
 |---|---|---|---|---|
-| Best of 594 hand-written rules (in-sample) | 0.30 | 1.00 | 139 | Rs.69,500 |
+| Best of 594 enumerated threshold rules (in-sample) | 0.30 | 1.00 | 139 | Rs.69,500 |
 | Tier 1, logistic, 2 features (out-of-fold) | 0.45 | 0.87 | 64 | Rs.152,000 |
 | **Tier 2, GBDT, 9 features (out-of-fold)** | **0.82** | **0.97** | **13** | **Rs.36,500** |
 
 The rule reaches perfect recall by queueing 139 legit households for review.
-Tier 2 reaches 0.97 with 13. **Tier 1 is beaten by a hand-written rule on cost**
+Tier 2 reaches 0.97 with 13. **Tier 1 is beaten by a plain threshold rule on cost**
 and is kept in the repo saying so, because reporting only the tier that wins
 would hide the more useful finding: two linear features are not enough here.
 
@@ -61,7 +67,7 @@ the same training world and applied to the same test world. Twelve pairs:
 
 | | precision | recall | est. cost | false positives / world |
 |---|---|---|---|---|
-| Best hand-tuned rule | 0.32 +/- 0.10 | 0.96 +/- 0.05 | Rs.110,542 +/- 28,614 | 143.6 |
+| Best tuned threshold rule | 0.32 +/- 0.10 | 0.96 +/- 0.05 | Rs.110,542 +/- 28,614 | 143.6 |
 | **Tier 2 model** | **0.61 +/- 0.17** | **0.97 +/- 0.05** | **Rs.46,042 +/- 35,068** | **44.6** |
 
 **Model cheaper in 11 of 12 worlds**, 95% Clopper-Pearson CI on the win rate
@@ -125,7 +131,7 @@ without it (`holdout.py --exclude-archetype slow_drain`, 6 pairs):
 
 | | precision | recall | cost | FPs / world |
 |---|---|---|---|---|
-| Best hand-tuned rule | 0.45 | 0.99 | Rs.49,333 | 73.7 |
+| Best tuned threshold rule | 0.45 | 0.99 | Rs.49,333 | 73.7 |
 | **Tier 2 model** | **0.74** | 0.96 | **Rs.48,667** | **27.3** |
 
 Read that honestly: **on cost the two are a tie** (Rs.48,667 against
@@ -172,7 +178,7 @@ detect.py          Tier 1: logistic regression, 2 features, readable
                    CIs, PR-AUC, permutation importance
        |
        v
-baseline.py        594 hand-written rules with the same feature access,
+baseline.py        594 enumerated threshold rules with the same feature access,
                    tuned in-sample. The check on whether the model earned
                    its place
        |
